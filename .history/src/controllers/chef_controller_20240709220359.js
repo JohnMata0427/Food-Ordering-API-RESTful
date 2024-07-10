@@ -9,12 +9,12 @@ const registroChefs =(req,res)=>{
     res.status(200).json({res:'registro de un nuevo chef'})
 }
 
-const confirmEmailChefs= (req,res)=>{
+const confirmEmail = (req,res)=>{
     res.status(200).json({res:'confirmar email de registro de chefs'})
 }
 
 export{
     listarChefs,
-    registroChefs,
-    confirmEmailChefs
+    registro,
+    confirmEmail
 }

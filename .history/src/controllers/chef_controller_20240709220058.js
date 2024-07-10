@@ -5,16 +5,12 @@ const listarChefs = (req,res)=>{
     res.status(200).json({res:'lista de veterinarios registrados'})
 }
 
-const registroChefs =(req,res)=>{
+const registro =(req,res)=>{
     res.status(200).json({res:'registro de un nuevo chef'})
 }
 
-const confirmEmailChefs= (req,res)=>{
-    res.status(200).json({res:'confirmar email de registro de chefs'})
-}
+
 
 export{
-    listarChefs,
-    registroChefs,
-    confirmEmailChefs
+    listarChefs
 }

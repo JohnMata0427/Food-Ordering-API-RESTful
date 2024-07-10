@@ -16,5 +16,5 @@ const confirmEmailChefs= (req,res)=>{
 export{
     listarChefs,
     registroChefs,
-    confirmEmailChefs
+    confirmEmail
 }
