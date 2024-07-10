@@ -1,4 +1,5 @@
 import chef from '../models/chef.js'
+import Chef from '../models/chef.js'
 import mongoose from 'mongoose'
 
 const listarChefs = (req,res)=>{
@@ -22,8 +23,8 @@ const confirmEmailChefs= async (req,res)=>{
     const ChefBDD = await chef.findOne({token:req.params.token})
     if(!ChefBDD?.token) return res.status(404).json({msg:"La cuenta ya ha sido confirmada"})
     ChefBDD.token = null
-    ChefBDD.confirmEmail=true
-    await ChefBDD.save()
+    veterinarioBDD.confirmEmail=true
+    await veterinarioBDD.save()
     res.status(200).json({msg:"Token confirmado, ya puedes iniciar sesión"}) 
     res.status(200).json({res:'confirmar email de registro de chefs'})
 }

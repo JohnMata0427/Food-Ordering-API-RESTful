@@ -1,4 +1,5 @@
 import chef from '../models/chef.js'
+import Chef from '../models/chef.js'
 import mongoose from 'mongoose'
 
 const listarChefs = (req,res)=>{
