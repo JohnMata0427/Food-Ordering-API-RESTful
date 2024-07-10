@@ -28,8 +28,26 @@ const confirmEmailChefs= async (req,res)=>{
     res.status(200).json({res:'confirmar email de registro de chefs'})
 }
 
+const loginChefs = async (req,res)=>{
+    const {email,password} = req.body
+    if (Object.values(req.body).includes("")) return res.status(404).json({msg:"Lo sentimos, tiene que llenar todos los campos"})
+    
+    const ChefBDD = await chef.findOne({email})
+    if(ChefBDD.confirmEmail === false) return res.status(403).json
+    ({msg:"Lo sentimos, debes verificar tu cuenta para poder iniciar sesión"})
+    if(!ChefBDD) return res.status(403).json({msg:"Lo sentimos, el email no existe"})
+    
+    const verificarPassword = await ChefBDD.matchPassword(password)
+    if(!verificarPassword) return res.status(404).json({msg:"Lo sentimos, el password es incorrecto"})
+    
+    //const token = generarJWT(ChefBDD._id,"Chef")
+    const {nombre,apellido,telefono,especialidad,trayectoria,_id} = ChefBDD
+
+    res.status(200).json({nombre,apellido,telefono,especialidad,trayectoria,_id,email:ChefBDD.email})
+}
 export{
     listarChefs,
     registroChefs,
-    confirmEmailChefs
+    confirmEmailChefs,
+    loginChefs
 }
