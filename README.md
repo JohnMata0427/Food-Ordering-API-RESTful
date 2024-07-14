@@ -96,6 +96,7 @@
 >   - Chefs
 >   - Students
 >   - Orders
+>   - Products
 
 </details>
 
@@ -109,7 +110,7 @@
 
 ---
 
-<h3 id="sprint-0">👨‍🍳 Sprint 1 - Chef Module</h3>
+<h3 id="sprint-1">👨‍🍳 Sprint 1 - Chef Module</h3>
 
 <details>
   <summary>✅ Endpoints to be Developeds</summary>
@@ -130,6 +131,10 @@
 > 🛠️ Endpoint for updating profile
 > 
 > 🛠️ Endpoint for updating password
+> 
+> 🛠️ Endpoint for getting chef by id
+> 
+> 🛠️ Endpoint for getting all chefts
 
 </details>
 
@@ -142,5 +147,71 @@
 > </div>
 >
 > 🎨 Figma layout URL: https://www.figma.com/design/QgTkoUAXTEj120bpNTTu5c/Food-Ordering-Application-at-ESFOT?node-id=0-1&t=Bi01naYjkzxz803s-1
+
+</details>
+
+---
+
+<h3 id="sprint-2">👩‍🎓 Sprint 2 - Student Module</h3>
+
+<details>
+  <summary>✅ Endpoints to be Developeds</summary>
+
+> <div align="center">
+>   <h4>Development in Express</h4>
+>   <img src="https://skillicons.dev/icons?i=express&theme=light">
+> </div>
+>
+> 🛠️ Endpoint for registration
+>
+> 🛠️ Endpoints for sending and verifying email
+> 
+> 🛠️ Endpoint for login
+> 
+> 🛠️ Endpoint for password reset
+> 
+> 🛠️ Endpoint for updating profile
+> 
+> 🛠️ Endpoint for updating password
+> 
+> 🛠️ Endpoint for getting student by ID
+> 
+> 🛠️ Endpoint for getting all students
+> 
+> 🛠️ Endpoint for deleting student account
+
+</details>
+
+---
+
+<h3 id="sprint-3">🏷️🍛 Sprint 3 - Products and Orders Module</h3>
+
+<details>
+  <summary>✅ Endpoints to be Developeds</summary>
+
+> <div align="center">
+>   <h4>Development in Express</h4>
+>   <img src="https://skillicons.dev/icons?i=express&theme=light">
+> </div>
+>
+> 🛠️ Endpoint for order registration
+>
+> 🛠️ Endpoints for getting order by id
+> 
+> 🛠️ Endpoint for getting all orders
+> 
+> 🛠️ Endpoint for updating order state
+> 
+> 🛠️ Endpoint for deleting order
+> 
+> 🛠️ Endpoint for creating product
+> 
+> 🛠️ Endpoint for getting all products
+> 
+> 🛠️ Endpoint for getting product by id
+> 
+> 🛠️ Endpoint for updating product
+> 
+> 🛠️ Endpoint for deleting product
 
 </details>
