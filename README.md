@@ -183,7 +183,7 @@
 
 ---
 
-<h3 id="sprint-3">🧾 Sprint 3 - Orders Module</h3>
+<h3 id="sprint-3">🏷️ Sprint 3 - Orders Module</h3>
 
 <details>
   <summary>✅ Endpoints to be Developeds</summary>
