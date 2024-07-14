@@ -1,5 +1,5 @@
 //Importar el esquema y el modelo de mongoose
-import {Schema, model} from 'mongoose'
+import { Schema, model } from 'mongoose'
 import bcrypt from "bcryptjs"
 
 const chefSchema = new Schema({
@@ -59,22 +59,22 @@ const chefSchema = new Schema({
 });
 
 // Método para cifrar el password del veterinario
-chefSchema.methods.encrypPassword = async function(password){
+chefSchema.methods.encrypPassword = async function (password) {
     const salt = await bcrypt.genSalt(10)
-    const passwordEncryp = await bcrypt.hash(password,salt)
+    const passwordEncryp = await bcrypt.hash(password, salt)
     return passwordEncryp
 }
 
 // Método para verificar si el password ingresado es el mismo de la BDD
-chefSchema.methods.matchPassword = async function(password){
-    const response = await bcrypt.compare(password,this.password)
+chefSchema.methods.matchPassword = async function (password) {
+    const response = await bcrypt.compare(password, this.password)
     return response
 }
 
 // Método para crear un token === OTP === 2FA 
-chefSchema.methods.crearToken = function(){
+chefSchema.methods.crearToken = function () {
     const tokenGenerado = this.token = Math.random().toString(36).slice(2)
     return tokenGenerado
 }
 
-export default model('Chef',chefSchema)
+export default model('Chef', chefSchema)

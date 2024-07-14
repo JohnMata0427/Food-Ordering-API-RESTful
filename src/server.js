@@ -19,10 +19,7 @@ app.use(express.json())
 app.get('/', (_, res) => res.send("Server on"))
 app.use('/api', routerChefs)
 
-
-
 app.use((req,res)=>res.status(404).send("Endpoint no encontrado - 404"))
-
 
 // Export the instance of express
 export default app
