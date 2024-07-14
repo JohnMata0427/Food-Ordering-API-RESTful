@@ -96,6 +96,7 @@
 >   - Chefs
 >   - Students
 >   - Orders
+>   - Products
 
 </details>
 
@@ -183,7 +184,7 @@
 
 ---
 
-<h3 id="sprint-3">🏷️ Sprint 3 - Orders Module</h3>
+<h3 id="sprint-3">🏷️🍛 Sprint 3 - Products and Orders Module</h3>
 
 <details>
   <summary>✅ Endpoints to be Developeds</summary>
@@ -202,5 +203,15 @@
 > 🛠️ Endpoint for updating order state
 > 
 > 🛠️ Endpoint for deleting order
+> 
+> 🛠️ Endpoint for creating product
+> 
+> 🛠️ Endpoint for getting all products
+> 
+> 🛠️ Endpoint for getting product by id
+> 
+> 🛠️ Endpoint for updating product
+> 
+> 🛠️ Endpoint for deleting product
 
 </details>
