@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
-import { html } from "cheerio";
 dotenv.config();
 
 let transporter = nodemailer.createTransport({
