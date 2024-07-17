@@ -128,19 +128,50 @@
 >
 > 🛠️ Endpoint for registration
 >
+> ```http
+> POST /api/register
+> ```
+>
 > 🛠️ Endpoints for sending and verifying email
 > 
+> ```http
+> GET /api/register
+> ```
+>
 > 🛠️ Endpoint for login
 > 
+> ```http
+> POST /api/register
+> ```
+>
 > 🛠️ Endpoint for password reset
 > 
+> ```http
+> POST /api/register
+> ```
+>
 > 🛠️ Endpoint for updating profile
 > 
+> ```http
+> POST /api/register
+> ```
+>
 > 🛠️ Endpoint for updating password
 > 
+> ```http
+> POST /api/register
+> ```
+>
 > 🛠️ Endpoint for getting chef by id
 > 
+> ```http
+> POST /api/register
+> ```
+>
 > 🛠️ Endpoint for getting all chefts
+> ```http
+> POST /api/register
+> ```
 
 </details>
 
