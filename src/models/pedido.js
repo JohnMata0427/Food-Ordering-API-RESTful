@@ -1,5 +1,5 @@
 // Importar el esquema y el modelo de mongoose
-import { Schema, model } from 'mongoose'
+import mongoose,{ Schema, model } from 'mongoose'
 
 const pedidoSchema = new Schema({
     estudiante: {

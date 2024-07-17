@@ -1,6 +1,27 @@
 import pedido from "../models/pedido.js"
 import mongoose from "mongoose";
 
+const registrarPedido = async (req, res) => {
+    try {
+        const pedidos = await pedido.create(req.body)
+        res.status(200).json({msg:`Registro exitoso del pedido ${pedidos._id}`, pedidos})
+    } catch (error) {
+        res.status(500).json({msg: "Error al registrar un pedido", error})
+    }
+}
+
+const detallePedido = async (req, res) => {
+    
+    try {
+        const {id} = req.params
+        const pedidos = await pedido.findById(id)
+        res.status(200).json(pedidos)
+    } catch (error) {
+        res.status(500).json({msg: "Error al mostrar el pedido", error})
+    }
+}
+
+
 const cambiarEstado = async (req, res) => {
     try {
         await pedido.findByIdAndUpdate(req.params.id, { estado: 'entregado' });
@@ -21,6 +42,8 @@ const eliminarPedido= async(req,res)=>{
 }
 
 export{
+    registrarPedido,
+    detallePedido,
     cambiarEstado,
     eliminarPedido
 }
