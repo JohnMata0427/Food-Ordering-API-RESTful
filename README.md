@@ -120,6 +120,12 @@
 >   <img src="https://skillicons.dev/icons?i=express&theme=light">
 > </div>
 >
+> <p>To create the backend endpoints, the MVC model is used, and the files that contain the sprint presentable are:</p>
+> 
+> [![Model](https://img.shields.io/badge/Chef%20Model-000000.svg?logo=JavaScript)](/src/models/chef.js)
+> [![Controller](https://img.shields.io/badge/Chef%20Controller-000000.svg?logo=JavaScript)](/src/controllers/chef_controller.js)
+> [![View](https://img.shields.io/badge/Chef%20Route-000000.svg?logo=JavaScript)](/src/routes/chef.routes.js)
+>
 > 🛠️ Endpoint for registration
 >
 > 🛠️ Endpoints for sending and verifying email
@@ -146,7 +152,7 @@
 >   <img src="https://skillicons.dev/icons?i=figma&theme=light">
 > </div>
 >
-> 🎨 Figma layout URL: https://www.figma.com/design/QgTkoUAXTEj120bpNTTu5c/Food-Ordering-Application-at-ESFOT?node-id=0-1&t=Bi01naYjkzxz803s-1
+> 🎨 Figma layout URL: https://www.figma.com/design/QgTkoUAXTEj120bpNTTu5c/Food-Ordering-Application-at-ESFOT
 
 </details>
 
@@ -161,6 +167,12 @@
 >   <h4>Development in Express</h4>
 >   <img src="https://skillicons.dev/icons?i=express&theme=light">
 > </div>
+>
+> <p>To create the backend endpoints, the MVC model is used, and the files that contain the sprint presentable are:</p>
+> 
+> [![Model](https://img.shields.io/badge/Student%20Model-000000.svg?logo=JavaScript)](/src/models/estudiante.js)
+> [![Controller](https://img.shields.io/badge/Student%20Controller-000000.svg?logo=JavaScript)](/src/controllers/estudiante_controller.js)
+> [![View](https://img.shields.io/badge/Student%20Routes-000000.svg?logo=JavaScript)](/src/routes/estudiante.routes.js)
 >
 > 🛠️ Endpoint for registration
 >
@@ -193,6 +205,16 @@
 >   <h4>Development in Express</h4>
 >   <img src="https://skillicons.dev/icons?i=express&theme=light">
 > </div>
+>
+> <p>To create the backend endpoints, the MVC model is used, and the files that contain the sprint presentable are:</p>
+> 
+> [![Model](https://img.shields.io/badge/Order%20Model-000000.svg?logo=JavaScript)](/src/models/pedido.js)
+> [![Controller](https://img.shields.io/badge/Order%20Controller-000000.svg?logo=JavaScript)](/src/controllers/pedido_controller.js)
+> [![View](https://img.shields.io/badge/Order%20Routes-000000.svg?logo=JavaScript)](/src/routes/pedido.routes.js)
+>
+> [![Model](https://img.shields.io/badge/Product%20Model-000000.svg?logo=JavaScript)](/src/models/producto.js)
+> [![Controller](https://img.shields.io/badge/Product%20Controller-000000.svg?logo=JavaScript)](/src/controllers/producto_controller.js)
+> [![View](https://img.shields.io/badge/Product%20Routes-000000.svg?logo=JavaScript)](/src/routes/producto.routes.js)
 >
 > 🛠️ Endpoint for order registration
 >
