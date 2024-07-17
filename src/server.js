@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import cors from 'cors';
 import routerChefs from './routers/chef_routes.js'
 import routerEstudiantes from './routers/estudiantes_routes.js'
+import routerPedidos from './routers/pedidos_routes.js'
 
 // Initializations
 const app = express()
@@ -20,6 +21,7 @@ app.use(express.json())
 app.get('/', (_, res) => res.send("Server on"))
 app.use('/api', routerChefs)
 app.use('/api', routerEstudiantes)
+app.use('/api', routerPedidos)
 
 app.use((req,res)=>res.status(404).send("Endpoint no encontrado - 404"))
 
