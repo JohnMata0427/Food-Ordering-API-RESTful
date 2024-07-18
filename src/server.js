@@ -9,6 +9,7 @@ import cloudinary from "cloudinary";
 import fileUpload from "express-fileupload";
 
 const app = express();
+app.use(cors());
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -24,7 +25,6 @@ app.use(
 );
 
 app.set("port", process.env.port || 3000);
-app.use(cors());
 
 app.use(express.json());
 
