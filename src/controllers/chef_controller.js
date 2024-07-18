@@ -84,6 +84,12 @@ const loginChefs = async (req, res) => {
     });
 };
 
+const perfilChef = (req, res) => {
+    if (!req.chefBDD) return res.status(404).json({ msg: "Lo sentimos, no se ha encontrado el chef, por favor inicie sesión" });
+
+    res.status(200).json(req.chefBDD);
+};
+
 const actualizarPerfilChef = async (req, res) => {
     const { id } = req.params;
 
@@ -170,6 +176,7 @@ export {
     registroChefs,
     confirmEmailChefs,
     loginChefs,
+    perfilChef,
     actualizarPerfilChef,
     actualizarContrasenaChef,
     recuperarPassword,

@@ -4,6 +4,7 @@ import {
     listarChefs,
     registroChefs,
     loginChefs,
+    perfilChef,
     actualizarPerfilChef,
     actualizarContrasenaChef,
     recuperarPassword,
@@ -18,6 +19,7 @@ router.get('/chefs', verificarAutenticacion, listarChefs)
 router.post('/registro', registroChefs)
 router.get('/confirmar/:token', confirmEmailChefs)
 router.post('/login', loginChefs)
+router.get('/perfil', verificarAutenticacion, perfilChef)
 router.put("/chef/:id", verificarAutenticacion, actualizarPerfilChef);
 router.put('/chef/actualizarpassword', verificarAutenticacion, actualizarContrasenaChef);
 router.post('/chef/recuperarpassword', recuperarPassword);
