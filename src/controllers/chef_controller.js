@@ -62,9 +62,9 @@ const loginChefs = async (req, res) => {
 
     const ChefBDD = await chef.findOne({ email });
 
-    if (!ChefBDD) return res.status(403).json({ msg: "Lo sentimos, el email no existe" });
+    if (!ChefBDD) return res.status(404).json({ msg: "Lo sentimos, el email no existe" });
 
-    if (!ChefBDD.confirmEmail) return res.status(403).json({msg: "Lo sentimos, debes verificar tu cuenta para poder iniciar sesión"});
+    if (!ChefBDD.confirmEmail) return res.status(401).json({msg: "Lo sentimos, debes verificar tu cuenta para poder iniciar sesión"});
 
     const verificarPassword = await ChefBDD.matchPassword(password);
 
@@ -87,7 +87,7 @@ const loginChefs = async (req, res) => {
 };
 
 const perfilChef = (req, res) => {
-    if (!req.chefBDD) return res.status(404).json({ msg: "Lo sentimos, no se ha encontrado el chef, por favor inicie sesión" });
+    if (!req.chefBDD) return res.status(401).json({ msg: "Lo sentimos, no se ha encontrado el chef, por favor inicie sesión" });
 
     res.status(200).json(req.chefBDD);
 };
@@ -96,8 +96,6 @@ const actualizarPerfilChef = async (req, res) => {
     const { id } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ msg: `Lo sentimos, debe ser un id válido` });
-
-    if (Object.values(req.body).includes("")) return res.status(400).json({ msg: "Lo sentimos, debes llenar todos los campos" });
     
     if (req.files) {
         const cloudinaryResponse = await cloudinary.uploader.upload(
@@ -110,7 +108,6 @@ const actualizarPerfilChef = async (req, res) => {
         };
         await fs.unlink(req.files.image.tempFilePath);
     }
-
 
     await chef.findByIdAndUpdate(id, req.body);
 
