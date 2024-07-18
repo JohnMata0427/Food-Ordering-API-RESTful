@@ -268,3 +268,31 @@
 > 🛠️ Endpoint for deleting product
 
 </details>
+
+---
+
+<h3 id="sprint-3">🥤🍫 Sprint 4 - Deploy and Documentation</h3>
+
+<details>
+  <summary>▶️ Deploy</summary>
+
+> <div align="center">
+>   <h4>Deployment in Render</h4>
+>   <img height="50px" src="https://cdn.sanity.io/images/34ent8ly/production/ec37a3660704e1fa2b4246c9a01ab34e145194ad-824x824.png">
+> </div>
+>
+> 🌐 Render Deployment URL: https://food-ordering-api-restful.onrender.com
+
+</details>
+
+<details>
+  <summary>▶️ API Documentation</summary>
+
+> <div align="center">
+>   <h4>Documentation in Swagger</h4>
+>   <img height="50px" src="https://cdn.svgporn.com/logos/swagger.svg">
+> </div>
+> 
+> 📓 API Documentation URL: https://food-ordering-api-restful.onrender.com
+
+</details>
