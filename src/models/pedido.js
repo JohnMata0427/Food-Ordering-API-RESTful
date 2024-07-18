@@ -1,54 +1,40 @@
-// Importar el esquema y el modelo de mongoose
-import mongoose,{ Schema, model } from 'mongoose'
+import { Schema, model, Types } from "mongoose";
 
 const pedidoSchema = new Schema({
-    estudiante: {
-        type:mongoose.Schema.Types.ObjectId,
-        ref:'estudiante'
-    },
-    productos: [{
-        type: String,
-        required: true,
-        trim: true
-    }],
-    cantidad: {
-        type: Number,
-        required: true
-    },
     total: {
         type: Number,
-        required: true
+        required: true,
     },
     status: {
         type: String,
-        enum: ['Pendiente', 'Completado'],
-        default: 'Pendiente'
+        enum: ["Pendiente", "Entregado", "Cancelado"],
+        default: "Pendiente",
     },
     fechaEntrega: {
         type: Date,
-        required: true
+        required: true,
     },
     notas: {
         type: String,
         trim: true,
-        default: null
-    }
-}, {
-    timestamps: true
+        default: null,
+    },
+    estudiante: {
+        type: Types.ObjectId,
+        ref: "Estudiante",
+    },
+    productos: [{
+        producto: { type: Types.ObjectId, ref: "Producto", required: true },
+        cantidad: { type: Number, required: true },
+    }],
+},
+{
+    timestamps: true,
 });
 
-// Método para actualizar el estado del pedido
-pedidoSchema.methods.actualizarStatus = function (nuevoStatus) {
-    this.status = nuevoStatus;
-    return this.save();
-}
-
 // Método para calcular el total del pedido
-pedidoSchema.methods.calcularTotal = function (preciosProductos) {
-    this.total = this.productos.reduce((total, producto, index) => {
-        return total + (preciosProductos[producto] * this.cantidad[index]);
-    }, 0);
-    return this.total;
-}
+pedidoSchema.methods.calcularTotal = function () {
+    return this.productos.reduce((acc, el) => acc + el.producto.precio * el.cantidad, 0);
+};
 
-export default model('pedido', pedidoSchema)
+export default model("Pedido", pedidoSchema);

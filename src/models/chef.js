@@ -1,80 +1,75 @@
 //Importar el esquema y el modelo de mongoose
-import { Schema, model } from 'mongoose'
-import bcrypt from "bcryptjs"
+import { Schema, model } from "mongoose";
+import bcrypt from "bcryptjs";
 
 const chefSchema = new Schema({
     nombre: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     apellido: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     telefono: {
         type: Number,
         trim: true,
-        default: null
+        unique: true,
+        default: null,
     },
     email: {
         type: String,
         required: true,
         trim: true,
-        unique: true
+        unique: true,
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     token: {
         type: String,
-        default: null
+        default: null,
     },
     confirmEmail: {
         type: Boolean,
-        default: false
+        default: false,
     },
     status: {
         type: Boolean,
-        default: true
+        default: true,
     },
     especialidad: {
         type: String,
         trim: true,
-        default: null
+        default: null,
     },
     trayectoria: {
         type: String,
         trim: true,
-        default: null
+        default: null,
     },
     foto: {
-        type: Object,
-        default: null
+        url: { type: String, default: null },
+        public_id: { type: String, default: null },
     }
-}, {
-    timestamps: true
+},
+{
+    timestamps: true,
 });
 
-// Método para cifrar el password del veterinario
-chefSchema.methods.encrypPassword = async function (password) {
-    const salt = await bcrypt.genSalt(10)
-    const passwordEncryp = await bcrypt.hash(password, salt)
-    return passwordEncryp
-}
+chefSchema.methods.encryptPassword = async (password) => {
+    return await bcrypt.hash(password, await bcrypt.genSalt(10));
+};
 
-// Método para verificar si el password ingresado es el mismo de la BDD
 chefSchema.methods.matchPassword = async function (password) {
-    const response = await bcrypt.compare(password, this.password)
-    return response
-}
+    return await bcrypt.compare(password, this.password);
+};
 
-// Método para crear un token === OTP === 2FA 
 chefSchema.methods.crearToken = function () {
-    const tokenGenerado = this.token = Math.random().toString(36).slice(2)
-    return tokenGenerado
-}
+    return this.token = Math.random().toString(36).slice(2);
+};
 
-export default model('Chef', chefSchema)
+export default model("Chef", chefSchema);

@@ -1,59 +1,64 @@
-import { Schema , model } from "mongoose";
+import { Schema, model } from "mongoose";
 import bcrypt from "bcryptjs";
 
 const estudianteSchema = new Schema({
     nombre: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
     apellido: {
         type: String,
         required: true,
-        trim: true
+        trim: true,
     },
-    telefono:{
-        type: String,
-        required: true,
-        trim: true
-    },
-    facultad:{
-        type: String,
-        required: true,
-        trim: true
-    },
-    email:{
+    telefono: {
         type: String,
         required: true,
         trim: true,
-        unique: true
+    },
+    facultad: {
+        type: String,
+        required: true,
+        trim: true,
+    },
+    email: {
+        type: String,
+        required: true,
+        trim: true,
+        unique: true,
     },
     password: {
         type: String,
         required: true,
     },
-    token:{
+    token: {
         type: String,
-        default:null
+        default: null,
     },
-    confirmEmail:{
+    confirmEmail: {
         type: Boolean,
-        default: null
+        default: null,
+    },
+    foto: {
+        url: { type: String, default: null },
+        public_id: { type: String, default: null },
     }
-})
+},
+{
+    timestamps: true,
+});
 
-estudianteSchema.methods.encrypPassword = async function ( password ) { 
-    const passwordEncryp = await bcrypt.hash( password , await bcrypt.genSalt(10));
-    return passwordEncryp;
+estudianteSchema.methods.encryptPassword = async function (password) {
+    return await bcrypt.hash(password, await bcrypt.genSalt(10));
 };
 
-estudianteSchema.methods.matchPassword = async function ( password ) {
+estudianteSchema.methods.matchPassword = async function (password) {
     return await bcrypt.compare(password, this.password);
 };
 
 estudianteSchema.methods.crearToken = function () {
-    const tokenGenerado = this.token = Math.random().toString(36).slice(2);
-    return tokenGenerado;
-}
+    return (this.token = Math.random().toString(36).slice(2));
+};
 
-export default model('estudiante' , estudianteSchema);
+export default model("Estudiante", estudianteSchema);
