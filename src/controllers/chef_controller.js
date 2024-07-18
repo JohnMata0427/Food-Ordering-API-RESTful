@@ -97,21 +97,25 @@ const actualizarPerfilChef = async (req, res) => {
 
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ msg: `Lo sentimos, debe ser un id válido` });
     
-    if (req.files) {
-        const cloudinaryResponse = await cloudinary.uploader.upload(
-            req.files.image.tempFilePath,
-            { folder: "chefs" }
-        );
-        req.body.foto = {
-            url: cloudinaryResponse.secure_url,
-            public_id: cloudinaryResponse.public_id,
-        };
-        await fs.unlink(req.files.image.tempFilePath);
+    try {
+        if (req.files && req.files.image) {
+            const cloudinaryResponse = await cloudinary.uploader.upload(
+                req.files.image.tempFilePath,
+                { folder: "chefs" }
+            );
+            req.body.foto = {
+                url: cloudinaryResponse.secure_url,
+                public_id: cloudinaryResponse.public_id,
+            };
+            await fs.unlink(req.files.image.tempFilePath);
+        }
+
+        await chef.findByIdAndUpdate(id, req.body);
+
+        res.status(200).json({ msg: "Perfil del chef actualizado correctamente" });
+    } catch (error) {
+        res.status(500).json({ msg: "Error en el servidor", error });
     }
-
-    await chef.findByIdAndUpdate(id, req.body);
-
-    res.status(200).json({ msg: "Perfil del chef actualizado correctamente" });
 };
 
 const actualizarContrasenaChef = async (req, res) => {
