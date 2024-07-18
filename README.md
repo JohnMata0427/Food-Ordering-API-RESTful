@@ -135,42 +135,54 @@
 > 🛠️ Endpoints for sending and verifying email
 > 
 > ```http
-> GET /api/register
+> GET /api/confirmar/:token
 > ```
 >
 > 🛠️ Endpoint for login
 > 
 > ```http
-> POST /api/register
+> POST /api/login
 > ```
 >
 > 🛠️ Endpoint for password reset
 > 
 > ```http
-> POST /api/register
+> POST /api/chef/recuperarpassword
+> ```
+>
+> 🛠️ Endpoint for cheking token for password reset
+> 
+> ```http
+> GET /api/chef/recuperarpassword/:token
+> ```
+>
+> 🛠️ Endpoint for new password
+> 
+> ```http
+> POST /api/chef/nuevopassword/:token
 > ```
 >
 > 🛠️ Endpoint for updating profile
 > 
 > ```http
-> POST /api/register
+> PUT /api/chef/:id
 > ```
 >
 > 🛠️ Endpoint for updating password
 > 
 > ```http
-> POST /api/register
+> POST /api/chef/actualizarpassword
 > ```
 >
 > 🛠️ Endpoint for getting chef by id
 > 
 > ```http
-> POST /api/register
+> GET /api/chef/:id
 > ```
 >
 > 🛠️ Endpoint for getting all chefts
 > ```http
-> POST /api/register
+> GET /api/chefs
 > ```
 
 </details>
@@ -207,21 +219,74 @@
 >
 > 🛠️ Endpoint for registration
 >
+> ```http
+> POST /api/estudiantes/registro
+> ```
+>
 > 🛠️ Endpoints for sending and verifying email
 > 
+> ```http
+> GET /api/estudiantes/confirmar/:id
+> ```
+>
 > 🛠️ Endpoint for login
 > 
+> ```http
+> POST /api/estudiantes/login
+> ```
+>
 > 🛠️ Endpoint for password reset
 > 
+> ```http
+> PUT /api/estudiantes/recuperarpassword
+> ```
+>
+> 🛠️ Endpoint for cheking token for password reset
+> 
+> ```http
+> GET /api/estudiantes/recuperarpassword/:token
+> ```
+>
+> 🛠️ Endpoint for new password
+> 
+> ```http
+> POST /api/estudiantes/nuevopassword/:token
+> ```
+>
 > 🛠️ Endpoint for updating profile
 > 
+> ```http
+> PUT /api/estudiantes/:id
+> ```
+>
 > 🛠️ Endpoint for updating password
 > 
+> ```http
+> PUT /api/estudiantes/actualizarpassword
+> ```
+>
 > 🛠️ Endpoint for getting student by ID
 > 
+> ```http
+> GET /api/estudiante/:id
+> ```
+>
 > 🛠️ Endpoint for getting all students
 > 
+> ```http
+> GET /api/estudiantes
+> ```
+>
+> 🛠️ Endpoint for getting student profile
+> 
+> ```http
+> GET /api/estudiantes/perfil
+> ```
+>
 > 🛠️ Endpoint for deleting student account
+> ```http
+> DELETE /api/estudiantes/:id
+> ```
 
 </details>
 
@@ -249,23 +314,68 @@
 >
 > 🛠️ Endpoint for order registration
 >
+> ```http
+> POST /api/pedido/registro
+> ```
+>
 > 🛠️ Endpoints for getting order by id
 > 
+> ```http
+> GET /api/pedido/:id
+> ```
+>
 > 🛠️ Endpoint for getting all orders
 > 
+> ```http
+> GET /api/pedidos
+> ```
+>
+> 🛠️ Endpoint for getting all orders of authenticated student
+> 
+> ```http
+> GET /api/pedidos/estudiante
+> ```
+>
 > 🛠️ Endpoint for updating order state
 > 
+> ```http
+> PUT /api/pedido/:id
+> ```
+>
 > 🛠️ Endpoint for deleting order
 > 
+> ```http
+> DELETE /api/pedido/:id
+> ```
+>
 > 🛠️ Endpoint for creating product
 > 
+> ```http
+> POST /api/productos/registro
+> ```
+>
 > 🛠️ Endpoint for getting all products
 > 
+> ```http
+> GET /api/productos
+> ```
+>
 > 🛠️ Endpoint for getting product by id
 > 
+> ```http
+> GET /api/productos/:id
+> ```
+>
 > 🛠️ Endpoint for updating product
 > 
+> ```http
+> PUT /api/productos/:id
+> ```
+>
 > 🛠️ Endpoint for deleting product
+> ```http
+> DELETE /api/productos/:id
+> ```
 
 </details>
 
