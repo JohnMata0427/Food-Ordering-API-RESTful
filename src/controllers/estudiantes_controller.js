@@ -1,10 +1,11 @@
 import Estudiante from "../models/estudiante.js";
-import { sendMailToUser } from "../config/nodemailer.js";
+import { sendMailToUser, sendMailToRecoveryPassword } from "../config/nodemailer.js";
 import { Types } from "mongoose";
 import generarJWT from "../helpers/crearJWT.js";
+import fs from "fs-extra";
+import cloudinary from "cloudinary";
 
-
-const listarEstudiantes = async (req, res) => {
+const listarEstudiantes = async (_, res) => {
     const estudiantes = await Estudiante.find();
 
     if (!estudiantes) return res.status(404).json({ msg: "Lo sentimos, no se encontraron estudiantes" });
@@ -72,13 +73,13 @@ const loginEstudiantes = async (req, res) => {
 
     if (!EstudianteBDD) return res.status(404).json({ msg: "Lo sentimos, el email no se encuentra registrado" });
 
-    if (!await EstudianteBDD.compararPassword(password)) return res.status(400).json({ msg: "Lo sentimos, la contraseña es incorrecta" });
+    if (!await EstudianteBDD.matchPassword(password)) return res.status(400).json({ msg: "Lo sentimos, la contraseña es incorrecta" });
 
     if (!EstudianteBDD.confirmEmail) return res.status(400).json({ msg: "Lo sentimos, debes confirmar tu email" });
 
-    const { nombre, apellido, facultad, telefono, direccion, _id } = Estudiante
+    const { nombre, apellido, facultad, telefono, direccion, _id } = EstudianteBDD;
 
-    const token = generarJWT(EstudianteBDD._id, "estudiante");
+    const token = generarJWT(_id, "estudiante");
 
     res.status(200).json({
         token,
@@ -93,7 +94,7 @@ const loginEstudiantes = async (req, res) => {
 }
 
 const actualizarContrasenaEstudiante = async (req, res) => {
-    const EstudianteBDD = await EstudianteBDD.findById(req.EstudianteBDD._id);
+    const EstudianteBDD = await Estudiante.findById(req.estudianteBDD._id);
 
     if (!EstudianteBDD) return res.status(404).json({ msg: `Lo sentimos, no existe el veterinario ${id}` });
     
@@ -121,7 +122,7 @@ const recuperarPassword = async (req, res) => {
     
     EstudianteBDD.token = token;
     
-    await sendMailToRecoveryPassword(email, token);
+    await sendMailToRecoveryPassword(email, token, 'estudiantes');
     
     await EstudianteBDD.save();
     
@@ -175,13 +176,25 @@ const perfilEstudiante = async (req, res) => {
 };
 
 const actualizarPerfilEstudiante = async (req, res) => {
-    const { id } = req.estudianteBDD;
+    const { id } = req.params;
 
     if (Object.values(req.body).includes("")) return res.status(400).json({ msg: "Lo sentimos, debes llenar todos los campos" });
-
+    
+    if (req.files) {
+        const cloudinaryResponse = await cloudinary.uploader.upload(
+            req.files.imagen.tempFilePath,
+            { folder: "estudiantes" }
+        );
+        req.body.foto = {
+            url: cloudinaryResponse.secure_url,
+            public_id: cloudinaryResponse.public_id,
+        };
+        await fs.unlink(req.files.imagen.tempFilePath);
+    }
+    
     await Estudiante.findByIdAndUpdate(id, req.body);
 
-    res.status(200).json({ msg: "Perfil actualizado" });
+    res.status(200).json({ msg: "Perfil del estudiante actualizado correctamente" });
 }
 
 export { 

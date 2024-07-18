@@ -5,6 +5,7 @@ const productoSchema = new Schema({
         type: String,
         required: true,
         trim: true,
+        unique: true,
     },
     precio: {
         type: Number,
@@ -19,14 +20,23 @@ const productoSchema = new Schema({
     descripcion: {
         type: String,
         trim: true,
+        required: true
     },
     foto: {
         type: {
             url: String,
             public_id: String,
         },
-        default: null,
+        required: true,
     },
+    cantidad: {
+        type: Number,
+        required: true,
+    },
+    estado: {
+        type: Boolean,
+        default: true,
+    }
 },
 {
     timestamps: true,

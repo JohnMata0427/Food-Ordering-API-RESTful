@@ -5,6 +5,8 @@ import {
 import generarJWT from "../helpers/crearJWT.js";
 import chef from "../models/chef.js";
 import mongoose from "mongoose";
+import fs from "fs-extra";
+import cloudinary from "cloudinary";
 
 const listarChefs = async (_, res) => {
     const chefs = await chef.find().select("-password -token -confirmEmail -__v -createdAt -updatedAt").where({ confirmEmail: true, estado: true });
@@ -96,18 +98,29 @@ const actualizarPerfilChef = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(id)) return res.status(404).json({ msg: `Lo sentimos, debe ser un id válido` });
 
     if (Object.values(req.body).includes("")) return res.status(400).json({ msg: "Lo sentimos, debes llenar todos los campos" });
-
-    const chefBDD = await chef.findByIdAndUpdate(id, req.body);
     
-    if (!chefBDD) return res.status(404).json({ msg: `Lo sentimos, no existe el veterinario ${id}` });
+    if (req.files) {
+        const cloudinaryResponse = await cloudinary.uploader.upload(
+            req.files.image.tempFilePath,
+            { folder: "chefs" }
+        );
+        req.body.foto = {
+            url: cloudinaryResponse.secure_url,
+            public_id: cloudinaryResponse.public_id,
+        };
+        await fs.unlink(req.files.image.tempFilePath);
+    }
+
+
+    await chef.findByIdAndUpdate(id, req.body);
 
     res.status(200).json({ msg: "Perfil del chef actualizado correctamente" });
 };
 
 const actualizarContrasenaChef = async (req, res) => {
-    const chefBDD = await chefBDD.findById(req.chefBDD._id);
+    const chefBDD = await chef.findById(req.chefBDD._id);
 
-    if (!chefBDD) return res.status(404).json({ msg: `Lo sentimos, no existe el veterinario ${id}` });
+    if (!chefBDD) return res.status(404).json({ msg: `Lo sentimos, no existe el chef ${id}` });
     
     const verificarPassword = await chefBDD.matchPassword(req.body.passwordactual);
 
@@ -133,7 +146,7 @@ const recuperarPassword = async (req, res) => {
     
     chefBDD.token = token;
     
-    await sendMailToRecoveryPassword(email, token);
+    await sendMailToRecoveryPassword(email, token, 'chef');
     
     await chefBDD.save();
     

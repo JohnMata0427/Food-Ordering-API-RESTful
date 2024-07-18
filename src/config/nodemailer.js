@@ -31,7 +31,7 @@ const sendMailToUser = (userMail, token) => {
     });
 };
 
-const sendMailToRecoveryPassword = async (userMail, token) => {
+const sendMailToRecoveryPassword = async (userMail, token, rol) => {
     let info = await transporter.sendMail({
         from: "admin@vet.com",
         to: userMail,
@@ -40,7 +40,7 @@ const sendMailToRecoveryPassword = async (userMail, token) => {
         html: `
     <h1>Sistema de gestión (FOOD - ESFOT)</h1>
     <hr>
-    <a href=${process.env.URL_BACKEND}chef/recuperarpassword/${token}>Clic para reestablecer tu contraseña</a>
+    <a href=${process.env.URL_BACKEND + rol}/recuperarpassword/${token}>Clic para reestablecer tu contraseña</a>
     <hr>
     <footer>Bienvenido!</footer>
     `,
