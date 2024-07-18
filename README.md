@@ -256,7 +256,7 @@
 > 🛠️ Endpoint for updating profile
 > 
 > ```http
-> OUT /api/estudiantes/:id
+> PUT /api/estudiantes/:id
 > ```
 >
 > 🛠️ Endpoint for updating password
