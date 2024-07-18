@@ -3,7 +3,6 @@ import { Schema, model, Types } from "mongoose";
 const pedidoSchema = new Schema({
     total: {
         type: Number,
-        required: true,
     },
     status: {
         type: String,
@@ -31,10 +30,5 @@ const pedidoSchema = new Schema({
 {
     timestamps: true,
 });
-
-// Método para calcular el total del pedido
-pedidoSchema.methods.calcularTotal = function () {
-    return this.productos.reduce((acc, el) => acc + el.producto.precio * el.cantidad, 0);
-};
 
 export default model("Pedido", pedidoSchema);

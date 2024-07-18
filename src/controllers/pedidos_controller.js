@@ -1,28 +1,56 @@
 import Pedido from "../models/pedido.js";
+import Producto from "../models/Producto.js";
 import { Types } from "mongoose";
 
 const registrarPedido = async (req, res) => {
 
-    const { id } = req.estudianteBDD;
+    const { _id } = req.estudianteBDD;
     
     if (Object.values(req.body).includes("")) return res.status(400).json({ msg: "Lo sentimos, debes llenar todos los campos" });
 
-    const { productos } = req.body;
+    const { fechaEntrega, notas, productos } = req.body;
 
-    productos.forEach((producto, cantidad) => {
-        if (!Types.ObjectId.isValid(producto.producto))
-            return res.status(400).json({ msg: "Lo sentimos, el id del producto no es válido" });
+    let cantidadValida = true;
+    let productoValido = true;
+    let total = 0;
 
-        if (typeof cantidad !== "number" || cantidad <= 0)
-            return res.status(400).json({ msg: "Lo sentimos, la cantidad del producto no es válida" });
-    });
+    for (let i = 0; i < productos.length; i++) {
+        if (!Types.ObjectId.isValid(productos[i].producto)) {
+            productoValido = false;
+            break;
+        }
+
+        if (productos[i].cantidad <= 0) {
+            cantidadValida = false;
+            break;
+        }
+
+        let productoBDD = await Producto.findById(productos[i].producto);
+
+        if (productoBDD.cantidad < productos[i].cantidad) {
+            cantidadValida = false;
+            break;
+        }
+
+        total += productoBDD.precio * productos[i].cantidad;
+
+        productoBDD.cantidad -= productos[i].cantidad;
+
+        await productoBDD.save();
+    }
+
+
+    if (!productoValido) return res.status(400).json({ msg: "Lo sentimos, debes ingresar un producto válido" });
+
+    if (!cantidadValida) return res.status(400).json({ msg: "Lo sentimos, debes ingresar una cantidad válida, mayor a 0 y menor o igual a la cantidad en stock" });
 
     const nuevoPedido = new Pedido({
-        ...req.body,
-        estudiante: id,
+        fechaEntrega,
+        estudiante: _id,
+        productos,
+        total,
+        notas,
     });
-
-    nuevoPedido.total = nuevoPedido.calcularTotal();
 
     await nuevoPedido.save();
 
@@ -30,7 +58,7 @@ const registrarPedido = async (req, res) => {
 };
 
 const obtenerPedidosEstudiante = async (req, res) => {
-    const pedidos = await Pedido.find({ estudiante: req.estudianteBDD.id });
+    const pedidos = await Pedido.find({ estudiante: req.estudianteBDD._id }).populate("productos.producto");
 
     if (!pedidos) return res.status(404).json({ msg: "Lo sentimos, no se encontraron pedidos" });
 
@@ -46,10 +74,9 @@ const obtenerPedidos = async (req, res) => {
 }
 
 const detallePedido = async (req, res) => {
+    const { id } = req.params;
 
-    const { idPedido } = req.query;
-
-    const pedido = await Pedido.find({ estudiante: req.estudianteBDD.id }).populate("productos.producto").where({ _id: idPedido });
+    const pedido = await Pedido.findById(id);
 
     if (!pedido) return res.status(404).json({ msg: "Lo sentimos, no se encontró el pedido" });
 
@@ -58,7 +85,7 @@ const detallePedido = async (req, res) => {
 
 const cambiarEstado = async (req, res) => {
     try {
-        await Pedido.findByIdAndUpdate(req.params.id, { estado: "Entregado" });
+        await Pedido.findByIdAndUpdate(req.params.id, { status: "Entregado" });
         res.status(200).json({ msg: "Estado del Pedido modificado exitosamente" });
     } catch (error) {
         console.log(error);
@@ -68,7 +95,7 @@ const cambiarEstado = async (req, res) => {
 
 const eliminarPedido = async (req, res) => {
     try {
-        await Pedido.findByIdAndUpdate(req.params.id, { estado: "Cancelado" });
+        await Pedido.findByIdAndUpdate(req.params.id, { status: "Cancelado" });
         res.status(200).json({ msg: "Estado del Pedido modificado exitosamente" });
     } catch (error) {
         console.log(error);
