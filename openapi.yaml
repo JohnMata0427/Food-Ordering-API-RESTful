@@ -1,0 +1,521 @@
+penapi: 3.0.1
+info:
+  title: API RESTful para el Sistema de Pedidos de Comida en la Asociación de la ESFOT
+  description: Esta API se encarga de publicitar y gestionar las opciones de comida disponibles en la Asociación de la facultad ESFOT (Escuela de Formación de Tecnologos), así como el acceso al aplicativo en el campus de la Escuela Politécnica Nacional mediante un sistema digital.
+  version: 1.0.0
+servers:
+- url: https://food-ordering-api-restful.onrender.com/api
+tags:
+- name: chefs
+  description: Este grupo de endpoints se encarga de procesar toda la información de los chefs.
+security:
+  - bearerAuth: []
+paths:
+  /registro:
+    post:
+      tags:
+      - chefs
+      summary: Inserta la información de un nuevo chef en la base de datos.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RegistroChef'
+        required: true
+      responses:
+        200:
+          description: La información del chef se guardo correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChefModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/ServerError'
+  
+  /confirmar/{token}:
+    get:
+      tags:
+      - chefs
+      summary: Confirma la identidad del chef mediante el token enviado al email ingresado en el registro.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        description: Token de confirmación enviado al email del chef.
+        schema:
+          type: string
+      responses:
+        200:
+          description: Chef confirmado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChefModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /chefs:
+    get:
+      tags:
+      - chefs
+      summary: Lista todos los chefs registrados.
+      responses:
+        200:
+          description: Lista de chefs obtenida correctamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ChefModel'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /login:
+    post:
+      tags:
+      - chefs
+      summary: Inicia sesión un chef.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginChef'
+        required: true
+      responses:
+        200:
+          description: Chef autenticado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /perfil:
+    get:
+      tags:
+      - chefs
+      summary: Obtiene el perfil del chef autenticado.
+      security:
+        - bearerAuth: []
+      responses:
+        200:
+          description: Perfil del chef obtenido correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChefModel'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /chef/{id}:
+    put:
+      tags:
+      - chefs
+      summary: Actualiza el perfil del chef.
+      security:
+        - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID del chef.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateChef'
+        required: true
+      responses:
+        200:
+          description: Perfil del chef actualizado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChefModel'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /chef/actualizarpassword:
+    post:
+      tags:
+      - chefs
+      summary: Actualiza la contraseña del chef.
+      security:
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePassword'
+        required: true
+      responses:
+        200:
+          description: Contraseña actualizada correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        401:
+          $ref: '#/components/responses/Unauthorized'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /chef/recuperarpassword:
+    post:
+      tags:
+      - chefs
+      summary: Envía un correo para recuperar la contraseña del chef.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecoverPassword'
+        required: true
+      responses:
+        200:
+          description: Correo de recuperación enviado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /chef/recuperarpassword/{token}:
+    get:
+      tags:
+      - chefs
+      summary: Verifica el token para la recuperación de contraseña.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        description: Token de recuperación de contraseña.
+        schema:
+          type: string
+      responses:
+        200:
+          description: Token verificado correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+
+  /chef/nuevopassword/{token}:
+    put:
+      tags:
+      - chefs
+      summary: Establece una nueva contraseña utilizando el token de recuperación.
+      parameters:
+      - name: token
+        in: path
+        required: true
+        description: Token de recuperación de contraseña.
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/NewPassword'
+        required: true
+      responses:
+        200:
+          description: Nueva contraseña establecida correctamente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        400:
+          $ref: '#/components/responses/BadRequest'
+        404:
+          $ref: '#/components/responses/NotFound'
+        500:
+          $ref: '#/components/responses/ServerError'
+  
+components:
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+      
+  responses:
+    Unauthorized:
+      description: (Unauthorized) No hay autorización para llamar al servicio
+    NotFound:
+      description: (NotFound) No se encontró información 
+    BadRequest:
+      description: (Bad Request) Los datos enviados son incorrectos o hay datos obligatorios no enviados
+    ServerError:
+      description: Error en servidor
+
+  parameters:
+    token:
+      in: header
+      name: token
+      description: Token de autenticaciÃ³n en API.
+      required: true
+      schema:
+        type: string
+    
+
+  schemas:
+
+    ChefModel:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Primer nombre del chef
+        apellido:
+          type: string
+          description: Apellido del chef
+        telefono:
+          type: integer
+          description: Numero de telefono del chef
+        email:
+          type: string
+          description: Email del chef
+        password:
+          type: string
+          description: Password del chef
+        token:
+          type: string
+          description: Token del chef
+        confirmEmail:
+          type: boolean
+          description: Confirmación del email del chef
+        status:
+          type: boolean
+          description: Status del chef
+        especialidad:
+          type: string
+          description: Especialidad del chef
+        trayectoria:
+          type: string
+          description: Trayectoria del chef
+        foto:
+          type: object
+          description: Foto del chef
+          properties: 
+            url: 
+              type: string
+            public_id: 
+              type: string
+        
+    RegistroChef:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Primer nombre del chef
+        apellido:
+          type: string
+          description: Apellido del chef
+        telefono:
+          type: integer
+          description: Numero de telefono del chef
+        email:
+          type: string
+          description: Email del chef
+        password:
+          type: string
+          description: Password del chef
+    
+    Response:  
+      type: object
+      properties: 
+        msg:
+          type: string
+          description: Mensaje de respuesta al servidor
+    
+    Login:
+      type: object
+      properties:
+        email:
+          type: string
+          description: Email del chef
+        password:
+          type: string
+          description: Password del chef
+          
+    Actualizar:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Primer nombre del chef
+        apellido:
+          type: string
+          description: Apellido del chef
+        telefono:
+          type: integer
+          description: Numero de telefono del chef
+        email:
+          type: string
+          description: Email del chef
+        especialidad:
+          type: string
+          description: Especialidad del chef
+        trayectoria:
+          type: string
+          description: Trayectoria del chef
+        image:
+          type: string
+          format: binary
+          
+    NuevoPass:
+      type: object
+      properties:
+        passwordactual:
+          type: string
+          description: Password actual del chef
+        passwordnuevo:
+          type: string
+          description: Password nuevo del chef
+        
+    
+    EstudiantesModel:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Primer nombre del estudiante
+        apellido:
+          type: string
+          description: Apellido del estudiante
+        telefono:
+          type: integer
+          description: Numero de telefono del estudiante
+        facultad:
+          type: string
+          description: Facultad a la que pertenece el estudiante
+        email:
+          type: string
+          description: Email del estudiante
+        password:
+          type: string
+          description: Password del estudiante
+        token:
+          type: string
+          description: Token del estudiante
+        confirmEmail:
+          type: boolean
+          description: Confirmación del email del estudiante
+        foto:
+          type: object
+          description: Foto del chef
+          properties: 
+            url: 
+              type: string
+            public_id: 
+              type: string
+          
+          
+          
+    PedidosModel:
+      type: object
+      properties:
+        total:
+          type: number
+          description: Total de pedidos
+        status:
+          type: string
+          description: Status del pedido
+          enum:
+            - Pendiente
+            - Entregado
+            - Cancelado
+          default: Pendiente
+        fechaEntrega:
+          type: string
+          description: Fecha de entrega del pedido
+          format: date-time
+        notas:
+          type: string
+          description: Notas acerca del pedido
+          nullable: true
+        estudiante:
+          type: string
+          description: Estudiante que hace el pedido
+          format: objectId
+        productos:
+          type: array
+          description: Productos del pedido
+          items:
+            type: object
+            properties:
+              producto:
+                type: string
+                format: objectId
+              cantidad:
+                type: number
+      required:
+        - fechaEntrega
+          
+    ProductoModel:
+      type: object
+      properties:
+        nombre:
+          type: string
+          description: Nombre del producto
+        precio:
+          type: integer
+          description: Precio del producto
+        categoria:
+          type: string
+          description: Categoria del producto
+        descripcion:
+          type: string
+          description: Descripcion del producto
+        foto:
+          type: object
+          description: Foto del chef
+          properties: 
+            url: 
+              type: string
+            public_id: 
+              type: string
+        cantidad:
+          type: integer
+          description: Cantidad del producto
+        estado:
+          type: boolean
+          description: Estado del producto
+          

@@ -9,7 +9,13 @@ import cloudinary from "cloudinary";
 import fileUpload from "express-fileupload";
 
 const app = express();
-app.use(cors());
+
+app.use(cors({
+  origin: 'http://localhost:5173',
+  optionsSuccessStatus: 200
+}));
+
+app.use(express.json());
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -24,9 +30,8 @@ app.use(
     })
 );
 
-app.set("port", process.env.port || 3000);
+app.set("port", process.env.PORT || 3000);
 
-app.use(express.json());
 
 app.get("/", (_, res) => res.send("Server on"));
 app.use("/api", routerChefs);
@@ -34,6 +39,6 @@ app.use("/api", routerEstudiantes);
 app.use("/api", routerPedidos);
 app.use("/api", routerProductos);
 
-app.use((_, res) => res.status(404).send("Endpoint no encontrado - 404"));
+app.use((_, res) => res.status(404).json({ msg: "Lo sentimos, la ruta solicitada no existe - Page Not Found 404" }));
 
 export default app;
