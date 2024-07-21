@@ -1,6 +1,6 @@
 <h1 align="center">
   <img height="35px" src="https://github.com/JohnMata0427/Food-Ordering-API-RESTful/assets/150484680/842b4e83-fd68-4f5e-8b20-e644053a69cf" alt="Logo">
-  $\color{Apricot}{Food\ Ordering\ at\ ESFOT\ System}$
+  $\color{Apricot}{Food\ Ordering\ at\ ESFOT\ API\ RESTful}$
   <img height="35px" src="https://github.com/JohnMata0427/Food-Ordering-API-RESTful/assets/150484680/842b4e83-fd68-4f5e-8b20-e644053a69cf" alt="Logo">
 </h1>
 
