@@ -19,8 +19,6 @@ const listarChefs = async (_, res) => {
 const registroChefs = async (req, res) => {
     const { email, password } = req.body;
 
-    console.log(req.body);
-
     if (Object.values(req.body).includes("")) return res.status(400).json({ msg: "Lo sentimos, debes llenar todos los campos" });
     
     const verificarEmailBDD = await chef.findOne({ email });
@@ -37,7 +35,7 @@ const registroChefs = async (req, res) => {
 
     await nuevoChef.save();
 
-    res.status(200).json(nuevoChef);
+    res.status(201).json(nuevoChef);
 };
 
 const confirmEmailChefs = async (req, res) => {
