@@ -20,7 +20,7 @@ router.get("/chefs", verificarAutenticacion, listarChefs);
 router.post("/registro", registroChefs);
 router.get("/confirmar/:token", confirmEmailChefs);
 router.post("/login", loginChefs);
-router.post("verificarcodigo", verificarCodigo);
+router.post("/verificarcodigo", verificarCodigo);
 router.get("/perfil", verificarAutenticacion, perfilChef);
 router.put("/chef/:id", verificarAutenticacion, actualizarPerfilChef);
 router.post(

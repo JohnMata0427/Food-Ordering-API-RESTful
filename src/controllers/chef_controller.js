@@ -137,8 +137,6 @@ const actualizarContrasenaChef = async (req, res) => {
 const recuperarPassword = async (req, res) => {
     const { email } = req.body;
 
-    console.log(email);
-    
     if (Object.values(req.body).includes("")) return res.status(404).json({ msg: "Debes llenar todos los campos" });
     
     const chefBDD = await chef.findOne({ email });
@@ -195,7 +193,7 @@ const nuevoPassword = async (req, res) => {
 
     const chefBDD = await chef.findOne({ token: req.params.token });
     
-    if (chefBDD?.token !== req.params.token) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
+    // if (chefBDD?.token !== req.params.token) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
     chefBDD.token = null;
     chefBDD.password = await chefBDD.encryptPassword(password);
