@@ -144,14 +144,16 @@ const recuperarPassword = async (req, res) => {
     if (!chefBDD) return res.status(404).json({ msg: "ERROR!! El usuario ingresado no existe" });
     
     const token = chefBDD.crearToken();
+    const verificationCode = Math.floor(Math.random() * (9999 - 1000) + 1000);
     
     chefBDD.token = token;
-    
-    await sendMailToRecoveryPassword(email, token, 'chef');
+    chefBDD.verificationCode = verificationCode;
     
     await chefBDD.save();
+
+    await sendMailToRecoveryPassword(email, token, verificationCode, 'chef');
     
-    res.status(200).json({ msg: "Se ha enviado un TOKEN a tu bandeja de entrada de tu correo" });
+    res.status(200).json({ msg: "Se ha enviado un correo a tu bandeja de entrada de tu correo" });
 };
 
 const comprobarTokenPassword = async (req, res) => {
@@ -165,6 +167,22 @@ const comprobarTokenPassword = async (req, res) => {
     
     res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
 };
+
+const verificarCodigo = async (req, res) => {
+    const { verificationCode } = req.body;
+
+    if (Object.values(req.body).includes("")) return res.status(404).json({ msg: "Debes llenar todos los campos" });
+
+    const chefBDD = await chef.findOne({ verificationCode });
+
+    if (chefBDD.verificationCode !== verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
+
+    chefBDD.verificationCode = null;
+
+    await chefBDD.save();
+
+    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
+}
 
 const nuevoPassword = async (req, res) => {
     const { password, confirmPassword } = req.body;
@@ -196,4 +214,5 @@ export {
     recuperarPassword,
     comprobarTokenPassword,
     nuevoPassword,
+    verificarCodigo,
 };

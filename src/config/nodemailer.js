@@ -31,7 +31,7 @@ const sendMailToUser = (userMail, token) => {
     });
 };
 
-const sendMailToRecoveryPassword = async (userMail, token, rol) => {
+const sendMailToRecoveryPassword = async (userMail, token, codigo, rol) => {
     let info = await transporter.sendMail({
         from: "admin@vet.com",
         to: userMail,
@@ -40,9 +40,16 @@ const sendMailToRecoveryPassword = async (userMail, token, rol) => {
         html: `
     <h1>Sistema de gestión (FOOD - ESFOT)</h1>
     <hr>
+    
+    <span>Su código de verificación es:</span>
+    <strong style:"font-size: 20px;color: #C36745">${codigo}</strong>
+
     <a href=${process.env.URL_FRONTEND + rol}/recuperarpassword/${token}>Clic para reestablecer tu contraseña</a>
+
+    <p>Si no solicitaste este cambio, por favor ignora este correo.</p>
+
     <hr>
-    <footer>Bienvenido!</footer>
+    <footer>&copy; ESFOT Association Food Ordering</footer>
     `,
     });
     console.log("Mensaje enviado satisfactoriamente: ", info.messageId);

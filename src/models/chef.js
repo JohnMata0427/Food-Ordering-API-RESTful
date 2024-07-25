@@ -33,6 +33,10 @@ const chefSchema = new Schema({
         type: String,
         default: null,
     },
+    verificationCode: {
+        type: Number,
+        default: null,
+    },
     confirmEmail: {
         type: Boolean,
         default: false,
