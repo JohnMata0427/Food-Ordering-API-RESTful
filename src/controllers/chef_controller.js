@@ -136,6 +136,8 @@ const actualizarContrasenaChef = async (req, res) => {
 
 const recuperarPassword = async (req, res) => {
     const { email } = req.body;
+
+    console.log(email);
     
     if (Object.values(req.body).includes("")) return res.status(404).json({ msg: "Debes llenar todos los campos" });
     
