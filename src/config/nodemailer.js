@@ -18,7 +18,7 @@ const sendMailToUser = (userMail, token) => {
         subject: "Verifica tu cuenta - ESFOT Association Food Order 🍛🍽️",
         html: `<p>Hola, haz clic <a href="${
             process.env.URL_FRONTEND
-        }confirmar/${encodeURIComponent(
+        }confirmar-email/${encodeURIComponent(
             token
         )}">aquí</a> para confirmar tu cuenta.</p>`,
     };
