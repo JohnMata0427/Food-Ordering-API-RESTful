@@ -156,17 +156,17 @@ const recuperarPassword = async (req, res) => {
     res.status(200).json({ msg: "Se ha enviado un correo a tu bandeja de entrada de tu correo" });
 };
 
-const comprobarTokenPassword = async (req, res) => {
-    if (!req.params.token) return res.status(404).json({ msg: "Lo sentimos, debe proporcionar un token" });
+// const comprobarTokenPassword = async (req, res) => {
+//     if (!req.params.token) return res.status(404).json({ msg: "Lo sentimos, debe proporcionar un token" });
 
-    const chefBDD = await chef.findOne({ token: req.params.token });
+//     const chefBDD = await chef.findOne({ token: req.params.token });
 
-    if (chefBDD.token !== req.params.token) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
+//     if (chefBDD.token !== req.params.token) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
     
-    await chefBDD.save();
+//     await chefBDD.save();
     
-    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
-};
+//     res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
+// };
 
 const verificarCodigo = async (req, res) => {
     const { verificationCode } = req.body;
@@ -177,11 +177,9 @@ const verificarCodigo = async (req, res) => {
 
     if (chefBDD.verificationCode !== verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
-    chefBDD.verificationCode = null;
-
     await chefBDD.save();
 
-    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
+    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña", id: chefBDD._id });
 }
 
 const nuevoPassword = async (req, res) => {
@@ -191,11 +189,12 @@ const nuevoPassword = async (req, res) => {
 
     if (password !== confirmPassword) return res.status(404).json({ msg: "Las contraseñas no coinciden" });
 
-    const chefBDD = await chef.findOne({ token: req.params.token });
+    const chefBDD = await chef.findById(req.query.id)
     
-    // if (chefBDD?.token !== req.params.token) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
+    if (chefBDD._id !== req.query.id && chefBDD?.verificationCode !== req.params.verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
     chefBDD.token = null;
+    chefBDD.verificationCode = null;
     chefBDD.password = await chefBDD.encryptPassword(password);
     
     await chefBDD.save();
