@@ -177,9 +177,7 @@ const verificarCodigo = async (req, res) => {
 
     if (chefBDD.verificationCode != verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
-    await chefBDD.save();
-
-    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña", id: chefBDD._id });
+    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña", id: chefBDD._id, verificationCode });
 }
 
 const nuevoPassword = async (req, res) => {
@@ -191,7 +189,7 @@ const nuevoPassword = async (req, res) => {
 
     const chefBDD = await chef.findById(req.query.id)
     
-    if (chefBDD._id !== req.query.id && chefBDD?.verificationCode !== req.params.verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
+    if (chefBDD._id !== req.query.i && chefBDD?.verificationCode !== req.query.v) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
     chefBDD.token = null;
     chefBDD.verificationCode = null;

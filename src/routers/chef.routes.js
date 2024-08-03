@@ -30,6 +30,6 @@ router.post(
 );
 router.post("/chef/recuperarpassword", recuperarPassword);
 router.get("/chef/recuperarpassword/:token", comprobarTokenPassword);
-router.put("/chef/nuevopassword/:token", nuevoPassword);
+router.put("/chef/nuevopassword", nuevoPassword);
 
 export default router;
