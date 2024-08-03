@@ -187,9 +187,9 @@ const nuevoPassword = async (req, res) => {
 
     if (password !== confirmPassword) return res.status(404).json({ msg: "Las contraseñas no coinciden" });
 
-    const chefBDD = await chef.findById(req.query.id)
+    const chefBDD = await chef.findById(req.query.i);
     
-    if (chefBDD._id !== req.query.i && chefBDD?.verificationCode !== req.query.v) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
+    if (chefBDD._id !== req.query.i && chefBDD?.verificationCode != req.query.v) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
     chefBDD.token = null;
     chefBDD.verificationCode = null;

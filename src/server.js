@@ -9,6 +9,7 @@ import cloudinary from "cloudinary";
 import fileUpload from "express-fileupload";
 
 const app = express();
+app.set("port", process.env.PORT || 3000);
 
 app.use(cors({
     origin: "*",
@@ -25,12 +26,8 @@ cloudinary.config({
 app.use(
     fileUpload({
         useTempFiles: true,
-        tempFileDir: "/tmp/",
     })
 );
-
-app.set("port", process.env.PORT || 3000);
-
 
 app.get("/", (_, res) => res.send("Server on"));
 app.use("/api", routerChefs);

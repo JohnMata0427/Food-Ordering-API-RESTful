@@ -29,7 +29,7 @@ router.post(
 	actualizarContrasenaChef
 );
 router.post("/chef/recuperarpassword", recuperarPassword);
-router.put("/chef/nuevopassword", nuevoPassword);
 router.get("/chef/recuperarpassword/:token", comprobarTokenPassword);
+router.post("/chef/nuevopassword", nuevoPassword);
 
 export default router;
