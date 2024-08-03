@@ -1,16 +1,16 @@
 import { Router } from "express";
 import {
-    confirmEmailChefs,
-    listarChefs,
-    registroChefs,
-    loginChefs,
-    perfilChef,
-    actualizarPerfilChef,
-    actualizarContrasenaChef,
-    recuperarPassword,
-    comprobarTokenPassword,
-    nuevoPassword,
-    verificarCodigo,
+	confirmEmailChefs,
+	listarChefs,
+	registroChefs,
+	loginChefs,
+	perfilChef,
+	actualizarPerfilChef,
+	actualizarContrasenaChef,
+	recuperarPassword,
+	comprobarTokenPassword,
+	nuevoPassword,
+	verificarCodigo,
 } from "../controllers/chef_controller.js";
 import verificarAutenticacion from "../middlewares/autenticacion.js";
 
@@ -24,9 +24,9 @@ router.post("/verificarcodigo", verificarCodigo);
 router.get("/perfil", verificarAutenticacion, perfilChef);
 router.put("/chef/:id", verificarAutenticacion, actualizarPerfilChef);
 router.post(
-    "/chef/actualizarpassword",
-    verificarAutenticacion,
-    actualizarContrasenaChef
+	"/chef/actualizarpassword",
+	verificarAutenticacion,
+	actualizarContrasenaChef
 );
 router.post("/chef/recuperarpassword", recuperarPassword);
 router.get("/chef/recuperarpassword/:token", comprobarTokenPassword);

@@ -3,7 +3,7 @@ import Chef from "../models/chef.js"
 import Estudiante from "../models/estudiante.js"
 
 const verificarAutenticacion = async (req, res, next) => {
-    if (!req.headers.authorization) return res.status(404).json({ msg: "Lo sentimos, debes proprocionar un token" });
+    if (!req.headers.authorization) return res.status(404).json({ msg: "Lo sentimos, debes proprocionar un token para estar autenticado" });
 
     const { authorization } = req.headers;
 
