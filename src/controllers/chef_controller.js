@@ -156,17 +156,17 @@ const recuperarPassword = async (req, res) => {
     res.status(200).json({ msg: "Se ha enviado un correo a tu bandeja de entrada de tu correo" });
 };
 
-// const comprobarTokenPassword = async (req, res) => {
-//     if (!req.params.token) return res.status(404).json({ msg: "Lo sentimos, debe proporcionar un token" });
+const comprobarTokenPassword = async (req, res) => {
+    if (!req.params.token) return res.status(404).json({ msg: "Lo sentimos, debe proporcionar un token" });
 
-//     const chefBDD = await chef.findOne({ token: req.params.token });
+    const chefBDD = await chef.findOne({ token: req.params.token });
 
-//     if (chefBDD.token !== req.params.token) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
+    if (chefBDD.token !== req.params.token) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
     
-//     await chefBDD.save();
+    await chefBDD.save();
     
-//     res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
-// };
+    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
+};
 
 const verificarCodigo = async (req, res) => {
     const { verificationCode } = req.body;
