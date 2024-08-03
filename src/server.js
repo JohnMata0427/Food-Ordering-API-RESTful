@@ -38,6 +38,6 @@ app.use("/api", routerEstudiantes);
 app.use("/api", routerPedidos);
 app.use("/api", routerProductos);
 
-app.use((_, res) => res.status(404).json({ msg: "Lo sentimos, la ruta solicitada no existe - Page Not Found 404" }));
+app.use((_, res) => res.status(404).json({ msg: "Lo sentimos, la ruta solicitada no existe" }));
 
 export default app;
