@@ -175,7 +175,7 @@ const verificarCodigo = async (req, res) => {
 
     const chefBDD = await chef.findOne({ verificationCode });
 
-    if (chefBDD.verificationCode !== verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
+    if (chefBDD.verificationCode != verificationCode) return res.status(404).json({ msg: "No se pudo validar la cuenta" });
 
     await chefBDD.save();
 
