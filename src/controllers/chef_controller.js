@@ -144,7 +144,7 @@ const recuperarPassword = async (req, res) => {
     if (!chefBDD) return res.status(404).json({ msg: "ERROR!! El usuario ingresado no existe" });
     
     const token = chefBDD.crearToken();
-    const verificationCode = Math.floor(Math.random() * (9999 - 1000) + 1000);
+    const verificationCode = Math.floor(Math.random() * (899999) + 100000);
     
     chefBDD.token = token;
     chefBDD.verificationCode = verificationCode;
