@@ -5,6 +5,7 @@ import {
     eliminarProducto,
     obtenerProductos,
     actualizarProducto,
+    obtenerProductosPorCategoria
 } from "../controllers/producto_controller.js";
 import verificarAutenticacion from "../middlewares/autenticacion.js";
 
@@ -12,6 +13,7 @@ const router = Router();
 
 router.post("/productos/registro", verificarAutenticacion, registrarProducto);
 router.get("/productos", obtenerProductos);
+router.get("/productos/:categoria", obtenerProductosPorCategoria);
 router.get("/productos/:id", detalleProducto);
 router.put("/productos/:id", verificarAutenticacion, actualizarProducto);
 router.delete("/productos/:id", verificarAutenticacion, eliminarProducto);
