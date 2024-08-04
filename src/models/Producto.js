@@ -15,7 +15,7 @@ const productoSchema = new Schema({
         type: String,
         required: true,
         trim: true,
-        enum: ['Almuerzo', 'Bebida', 'Snack'],
+        enum: ['Comidas', 'Bebidas', 'Snacks'],
     },
     descripcion: {
         type: String,
