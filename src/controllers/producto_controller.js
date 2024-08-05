@@ -64,16 +64,14 @@ const obtenerProductosPorCategoria = async (req, res) => {
 };
 
 const detalleProducto = async (req, res) => {
-	const { id } = req.params;
-
-	const ProductoBDD = await Producto.findById(id);
-
-	if (!ProductoBDD)
-		return res
-			.status(404)
-			.json({ msg: "Lo sentimos, no se encontró el Producto" });
-
-	res.status(200).json(ProductoBDD);
+	try {
+		const producto = await Producto.findById(req.params.id);
+		res.status(200).json(producto);
+	} catch (error) {
+		res.status(404).json({
+			msg: "Lo sentimos, no se encontró el Producto",
+		});
+	}
 };
 
 const actualizarProducto = async (req, res) => {
