@@ -11,7 +11,10 @@ import fileUpload from "express-fileupload";
 const app = express();
 app.set("port", process.env.PORT || 3000);
 
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:5173',
+    optionsSuccessStatus: 200
+}));
 
 app.use(express.json());
 
