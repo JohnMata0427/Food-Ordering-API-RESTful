@@ -66,7 +66,7 @@ const obtenerPedidosEstudiante = async (req, res) => {
 }
 
 const obtenerPedidos = async (req, res) => {
-    const pedidos = await Pedido.find();
+    const pedidos = await Pedido.find().populate('estudiantes.estudiante');
 
     if (!pedidos) return res.status(404).json({ msg: "Lo sentimos, no se encontraron pedidos" });
 
