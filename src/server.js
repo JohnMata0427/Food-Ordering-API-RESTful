@@ -11,21 +11,8 @@ import fileUpload from "express-fileupload";
 const app = express();
 app.set("port", process.env.PORT || 3000);
 
-const allowedOrigins = [
-    'https://pedidos-comida-esfot.vercel.app', 
-    'https://food-ordering-api-restful.onrender.com/api', 
-];
-
 app.use(cors({
-    origin: function (origin, callback) {
-        
-        if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-            callback(null, true);
-        } else {
-            callback(new Error('No permitido por CORS'));
-        }
-    },
-    credentials: true,  
+    origin: '*' 
 }));
 
 app.use(express.json());
