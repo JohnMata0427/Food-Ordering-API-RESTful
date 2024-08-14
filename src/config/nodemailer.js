@@ -43,8 +43,9 @@ const sendMailToRecoveryPassword = async (userMail, token, codigo, rol) => {
     
     <span>Su código de verificación es:</span>
     <strong style:"font-size: 20px;color: #C36745">${codigo}</strong>
+    <br>
 
-    <a href=${process.env.URL_FRONTEND + rol}/recuperarpassword/${token}>Clic para reestablecer tu contraseña</a>
+    <a href=${process.env.URL_FRONTEND + rol}/recuperar-contraseña/${token}>Clic para reestablecer tu contraseña</a>
 
     <p>Si no solicitaste este cambio, por favor ignora este correo.</p>
 
