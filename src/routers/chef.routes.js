@@ -9,7 +9,7 @@ import {
 	actualizarContrasenaChef,
 	recuperarPassword,
 	comprobarTokenPassword,
-	nuevoPassword,
+	nuevoPasswordChef,
 	verificarCodigo,
 } from "../controllers/chef_controller.js";
 import verificarAutenticacion from "../middlewares/autenticacion.js";
@@ -30,6 +30,6 @@ router.post(
 );
 router.post("/chef/recuperarpassword", recuperarPassword);
 router.get("/chef/recuperarpassword/:token", comprobarTokenPassword);
-router.post("/chef/nuevopassword", nuevoPassword);
+router.post("/chef/nuevopassword", nuevoPasswordChef);
 
 export default router;

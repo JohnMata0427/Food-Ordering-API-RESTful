@@ -179,10 +179,8 @@ const verificarCodigo = async (req, res) => {
     res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña", id: chefBDD._id, verificationCode });
 }
 
-const nuevoPassword = async (req, res) => {
+const nuevoPasswordChef = async (req, res) => {
     const { password, confirmPassword } = req.body;
-    console.log(`Query: ${req.query.i}`);
-    console.log(`Query: ${req.query.v}`);
     
     if (Object.values(req.body).includes("")) return res.status(404).json({ msg: "Debes llenar todos los campos" });
 
@@ -211,6 +209,6 @@ export {
     actualizarContrasenaChef,
     recuperarPassword,
     comprobarTokenPassword,
-    nuevoPassword,
+    nuevoPasswordChef,
     verificarCodigo,
 };
