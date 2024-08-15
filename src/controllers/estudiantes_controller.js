@@ -119,10 +119,12 @@ const recuperarPassword = async (req, res) => {
     if (!EstudianteBDD) return res.status(404).json({ msg: "ERROR!! El usuario ingresado no existe" });
     
     const token = EstudianteBDD.crearToken();
+    const verificationCode = Math.floor(Math.random() * (899999) + 100000);
     
     EstudianteBDD.token = token;
+    EstudianteBDD.verificationCode = verificationCode;
     
-    await sendMailToRecoveryPassword(email, token, 'estudiantes');
+    await sendMailToRecoveryPassword(email, token, verificationCode,'estudiantes');
     
     await EstudianteBDD.save();
     
