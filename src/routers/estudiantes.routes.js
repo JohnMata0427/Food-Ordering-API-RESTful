@@ -21,7 +21,7 @@ router.post("/estudiantes/registro", registroEstudiantes);
 router.get("/estudiantes/confirmar/:token", confirmEmailEstudiantes);
 router.post("/estudiantes/login", loginEstudiantes);
 router.get("/estudiantes/perfil", verificarAutenticacion, perfilEstudiante);
-router.put(
+router.post(
     "/estudiantes/:id",
     verificarAutenticacion,
     actualizarPerfilEstudiante
