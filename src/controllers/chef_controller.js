@@ -181,13 +181,12 @@ const verificarCodigo = async (req, res) => {
 
 const nuevoPassword = async (req, res) => {
     const { password, confirmPassword } = req.body;
-
+    console.log(`Query: ${req.query.i}`);
+    console.log(`Query: ${req.query.v}`);
+    
     if (Object.values(req.body).includes("")) return res.status(404).json({ msg: "Debes llenar todos los campos" });
 
     if (password !== confirmPassword) return res.status(404).json({ msg: "Las contraseñas no coinciden" });
-
-    console.log("req.query.i", req.query.i);
-    console.log("req.query.v", req.query.v);
 
     const chefBDD = await chef.findById(req.query.i);
     
