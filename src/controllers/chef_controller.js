@@ -33,6 +33,8 @@ const registroChefs = async (req, res) => {
 
     sendMailToUser(email, token);
 
+    nuevoChef.foto.url = "https://w7.pngwing.com/pngs/874/998/png-transparent-of-chef-hat-computer-icons-chef-s-uniform-toque-iconfinder-cook-chef-hat-icon-miscellaneous-white-text-thumbnail.png"
+
     await nuevoChef.save();
 
     res.status(201).json(nuevoChef);
