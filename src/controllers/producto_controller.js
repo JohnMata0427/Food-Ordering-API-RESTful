@@ -102,7 +102,7 @@ const actualizarProducto = async (req, res) => {
 			.status(404)
 			.json({ msg: "Lo sentimos, no se encontró el Producto" });
 
-	res.status(200).json(ProductoBDD);
+	res.status(200).json({ msg: "Producto actualizado correctamente" });
 };
 
 const eliminarProducto = async (req, res) => {
