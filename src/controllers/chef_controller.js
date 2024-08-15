@@ -150,7 +150,7 @@ const recuperarPassword = async (req, res) => {
     
     await chefBDD.save();
 
-    await sendMailToRecoveryPassword(email, token, verificationCode, 'chef');
+    await sendMailToRecoveryPassword(email, token, verificationCode, '');
     
     res.status(200).json({ msg: "Se ha enviado un correo a tu bandeja de entrada, ingresa el código de verificación o haz clic en el enlace" });
 };
