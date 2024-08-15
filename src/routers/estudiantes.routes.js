@@ -21,12 +21,12 @@ router.post("/estudiantes/registro", registroEstudiantes);
 router.get("/estudiantes/confirmar/:token", confirmEmailEstudiantes);
 router.post("/estudiantes/login", loginEstudiantes);
 router.get("/estudiantes/perfil", verificarAutenticacion, perfilEstudiante);
-router.post(
+router.put(
     "/estudiantes/:id",
     verificarAutenticacion,
     actualizarPerfilEstudiante
 );
-router.put(
+router.post(
     "/estudiantes/actualizarpassword",
     verificarAutenticacion,
     actualizarContrasenaEstudiante
