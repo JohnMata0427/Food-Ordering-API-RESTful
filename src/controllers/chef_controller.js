@@ -39,20 +39,19 @@ const registroChefs = async (req, res) => {
 };
 
 const confirmEmailChefs = async (req, res) => {
+    
     if (!req.params.token) return res.status(400).json({ msg: "Lo sentimos, debe proporcionar un token" });
-
+    
     const ChefBDD = await chef.findOne({ token: req.params.token });
 
     if (!ChefBDD) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
-
-    if (ChefBDD.confirmEmail) return res.status(404).json({ msg: "La cuenta ya ha sido confirmada" });
 
     ChefBDD.token = null;
     ChefBDD.confirmEmail = true;
 
     await ChefBDD.save();
 
-    res.status(200).json({ msg: "Token confirmado, ya puedes iniciar sesión" });
+    res.status(200).json({ msg: "Email confirmado, ya puedes iniciar sesión" });
 };
 
 const loginChefs = async (req, res) => {
@@ -141,7 +140,7 @@ const recuperarPassword = async (req, res) => {
     
     const chefBDD = await chef.findOne({ email });
     
-    if (!chefBDD) return res.status(404).json({ msg: "ERROR!! El usuario ingresado no existe" });
+    if (!chefBDD) return res.status(404).json({ msg: "Lo sentimos, el email no existe" });
     
     const token = chefBDD.crearToken();
     const verificationCode = Math.floor(Math.random() * (899999) + 100000);
@@ -153,7 +152,7 @@ const recuperarPassword = async (req, res) => {
 
     await sendMailToRecoveryPassword(email, token, verificationCode, 'chef');
     
-    res.status(200).json({ msg: "Se ha enviado un correo a tu bandeja de entrada de tu correo" });
+    res.status(200).json({ msg: "Se ha enviado un correo a tu bandeja de entrada, ingresa el código de verificación o haz clic en el enlace" });
 };
 
 const comprobarTokenPassword = async (req, res) => {
@@ -161,11 +160,11 @@ const comprobarTokenPassword = async (req, res) => {
 
     const chefBDD = await chef.findOne({ token: req.params.token });
 
-    if (chefBDD.token !== req.params.token) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
+    if (chefBDD?.token !== req.params.token) return res.status(404).json({ msg: "Lo sentimos, el token es inválido" });
     
     await chefBDD.save();
     
-    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
+    res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña", id: chefBDD._id, verificationCode: chefBDD.verificationCode });
 };
 
 const verificarCodigo = async (req, res) => {
@@ -197,7 +196,7 @@ const nuevoPassword = async (req, res) => {
     
     await chefBDD.save();
     
-    res.status(200).json({ msg: "Se ha actualizado la contraseña" });
+    res.status(200).json({ msg: "Se ha actualizado la contraseña correctamente, ya puedes iniciar sesión" });
 };
 
 export {
