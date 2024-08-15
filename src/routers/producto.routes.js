@@ -15,7 +15,7 @@ router.post("/productos/registro", verificarAutenticacion, registrarProducto);
 router.get("/productos", obtenerProductos);
 router.get("/productos/:categoria", obtenerProductosPorCategoria);
 router.get("/producto/:id", detalleProducto);
-router.put("/productos/:id", verificarAutenticacion, actualizarProducto);
-router.delete("/productos/:id", verificarAutenticacion, eliminarProducto);
+router.put("/producto/:id", verificarAutenticacion, actualizarProducto);
+router.delete("/producto/:id", verificarAutenticacion, eliminarProducto);
 
 export default router;
