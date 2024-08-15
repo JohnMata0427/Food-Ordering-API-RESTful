@@ -26,7 +26,7 @@ router.put(
     verificarAutenticacion,
     actualizarPerfilEstudiante
 );
-router.put(
+router.post(
     "/estudiantes/actualizarpassword",
     verificarAutenticacion,
     actualizarContrasenaEstudiante
