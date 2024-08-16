@@ -82,7 +82,7 @@ const actualizarProducto = async (req, res) => {
 			.status(400)
 			.json({ msg: "Lo sentimos, debes llenar todos los campos" });
 
-	if (req.files) {
+	if (req.files?.image) {
 		const cloudinaryResponse = await cloudinary.uploader.upload(
 			req.files.image.tempFilePath,
 			{ folder: "products" }

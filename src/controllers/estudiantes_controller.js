@@ -138,6 +138,7 @@ const comprobarTokenPassword = async (req, res) => {
     
     await EstudianteBDD.save();
     
+    
     res.status(200).json({ msg: "Se ha validado la cuenta, ya puedes ya puedes crear tu nueva contraseña" });
 };
 
