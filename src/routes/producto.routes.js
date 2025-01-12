@@ -62,8 +62,8 @@ const router = Router();
  *    - estado
  */
 
+/
 router.post("/productos/registro", verificarAutenticacion, registrarProducto);
-
 
 /**
 * @swagger
