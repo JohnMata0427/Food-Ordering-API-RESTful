@@ -62,7 +62,25 @@ const router = Router();
  *    - estado
  */
 
-/
+/**
+ * @swagger
+ * /productos/registro:
+ *  post:
+ *   summary: Registrar un producto
+ *   description: Registrar un nuevo producto en la base de datos
+ *   requestBody:
+ *    content:
+ *     application/json:
+ *    schema:
+ *     $ref: '#/definitions/Producto'
+ *   responses:
+ *    200:
+ *     description: Producto registrado
+ *    400:
+ *     description: Error al registrar el producto
+ *    500:
+ *     description: Error del servidor
+ */
 router.post("/productos/registro", verificarAutenticacion, registrarProducto);
 
 /**
