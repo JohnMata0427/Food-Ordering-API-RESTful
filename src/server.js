@@ -7,8 +7,13 @@ import routerPedidos from "./routers/pedidos.routes.js";
 import routerProductos from "./routers/producto.routes.js";
 import cloudinary from "cloudinary";
 import fileUpload from "express-fileupload";
+import { serve, setup } from "swagger-ui-express";
+import { swaggerSpec } from "./swagger.js";
 
 const app = express();
+
+app.use('/api-docs', serve, setup(swaggerSpec));
+
 app.use(cors());
 
 app.set("port", process.env.PORT || 3000);
