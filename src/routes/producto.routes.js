@@ -71,8 +71,8 @@ const router = Router();
  *   requestBody:
  *    content:
  *     application/json:
- *    schema:
- *     $ref: '#/definitions/Producto'
+ *      schema:
+ *       $ref: '#/definitions/Producto'
  *   responses:
  *    200:
  *     description: Producto registrado

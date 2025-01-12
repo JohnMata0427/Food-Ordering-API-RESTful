@@ -1,10 +1,10 @@
 import express from "express";
 import "dotenv/config"
 import cors from "cors";
-import routerChefs from "./routers/chef.routes.js";
-import routerEstudiantes from "./routers/estudiantes.routes.js";
-import routerPedidos from "./routers/pedidos.routes.js";
-import routerProductos from "./routers/producto.routes.js";
+import routerChefs from "./routes/chef.routes.js";
+import routerEstudiantes from "./routes/estudiantes.routes.js";
+import routerPedidos from "./routes/pedidos.routes.js";
+import routerProductos from "./routes/producto.routes.js";
 import cloudinary from "cloudinary";
 import fileUpload from "express-fileupload";
 import { serve, setup } from "swagger-ui-express";

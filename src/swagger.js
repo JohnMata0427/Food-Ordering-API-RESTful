@@ -11,12 +11,20 @@ const options = {
         name: "John Mata",
         email: "john.mata@epn.edu.ec"
       },
-      servers: ["https://food-ordering-api-restful.onrender.com"],
+      servers: ["https://food-ordering-api-restful.onrender.com/api"],
     },
     basePath: "/api",
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          type: "http",
+          scheme: "bearer",
+        },
+      },
+    },
     servers: [
       {
-        url: "https://food-ordering-api-restful.onrender.com",
+        url: "https://food-ordering-api-restful.onrender.com/api",
         description: "Production server",
       },
     ],
